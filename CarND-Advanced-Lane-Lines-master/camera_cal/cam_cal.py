@@ -35,3 +35,12 @@ dist_pickle = {}
 dist_pickle['mtx'] = mtx
 dist_pickle['dist'] = dist
 pickle.dump(dist_pickle,open('./calibration_pickle.p','wb'))
+
+# img = cv2.imread('calibration3.jpg')
+# gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+# img_size = (img.shape[1], img.shape[0])
+# ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, gray.shape[::-1],None,None)
+
+# dst = cv2.undistort(img, mtx, dist, None, mtx)
+# write_name = 'calibrated.jpg'
+# cv2.imwrite(write_name,dst)

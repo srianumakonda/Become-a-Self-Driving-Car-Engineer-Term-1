@@ -78,6 +78,9 @@ for idx,fname in enumerate(images):
     c_binary = color_threshold(img, sthresh=(100,255),vthresh=(50,255))
     preprocessImage[((gradx==1)&(grady==1)|(c_binary==1))] = 255
     
+#     write_name = './test_images/gradient' + str(idx) + '.jpg'
+#     cv2.imwrite(write_name,preprocessImage)
+    
     img_size = (img.shape[1], img.shape[0])
     bot_width = .75 #changed form .76
     mid_width = .1 #changed from .08
@@ -92,6 +95,9 @@ for idx,fname in enumerate(images):
     Minv = cv2.getPerspectiveTransform(dst, src)
     warped = cv2.warpPerspective(preprocessImage, M, img_size,flags=cv2.INTER_LINEAR)
     
+#     write_name = './test_images/perspective' + str(idx) + '.jpg'
+#     cv2.imwrite(write_name,warped)
+ 
     window_width = 25
     window_height = 80
     curve_centers = tracker(Mywindow_width=window_width,Mywindow_height=window_height,Mymargin=25,My_ym=10/720,My_xm=4/384,Mysmooth_factor=15)
@@ -119,6 +125,9 @@ for idx,fname in enumerate(images):
     warpage = np.array(cv2.merge((warped,warped,warped)),np.uint8)
     result = cv2.addWeighted(warpage,1,template,0.5,0.0)
     
+#     write_name = './test_images/greenbox' + str(idx) + '.jpg'
+#     cv2.imwrite(write_name,result)   
+
     yvals = range(0,warped.shape[0])
     res_yvals = np.arange(warped.shape[0]-(window_height/2),0,-window_height)
     
@@ -149,6 +158,10 @@ for idx,fname in enumerate(images):
     base = cv2.addWeighted(img, 1.0, road_warped_bkg, -1.0, 0.0)
     result = cv2.addWeighted(base,0.5,road_warped,1.0,0.0)
     
+#     write_name = './test_images/polylines' + str(idx) + '.jpg'
+#     cv2.imwrite(write_name,road)
+    
+    
     #measure pixels in y and x directions
     ym_per_pix = curve_centers.ym_per_pix
     xm_per_pix = curve_centers.xm_per_pix
@@ -167,3 +180,5 @@ for idx,fname in enumerate(images):
     
     write_name = './test_images/tracked' + str(idx) + '.jpg'
     cv2.imwrite(write_name,result)
+    
+    
