@@ -1,56 +1,61 @@
 # **Finding Lane Lines on the Road** 
-[![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
 
-<img src="examples/laneLines_thirdPass.jpg" width="480" alt="Combined Image" />
+## Writeup Template
 
-Overview
+### You can use this file as a template for your writeup if you want to submit it as a markdown file. But feel free to use some other method and submit a pdf if you prefer.
+
 ---
 
-When we drive, we use our eyes to decide where to go.  The lines on the road that show us where the lanes are act as our constant reference for where to steer the vehicle.  Naturally, one of the first things we would like to do in developing a self-driving car is to automatically detect lane lines using an algorithm.
+**Finding Lane Lines on the Road**
 
-In this project you will detect lane lines in images using Python and OpenCV.  OpenCV means "Open-Source Computer Vision", which is a package that has many useful tools for analyzing images.  
-
-To complete the project, two files will be submitted: a file containing project code and a file containing a brief write up explaining your solution. We have included template files to be used both for the [code](https://github.com/udacity/CarND-LaneLines-P1/blob/master/P1.ipynb) and the [writeup](https://github.com/udacity/CarND-LaneLines-P1/blob/master/writeup_template.md).The code file is called P1.ipynb and the writeup template is writeup_template.md 
-
-To meet specifications in the project, take a look at the requirements in the [project rubric](https://review.udacity.com/#!/rubrics/322/view)
+The goals / steps of this project are the following:
+* Make a pipeline that finds lane lines on the road
+* Reflect on your work in a written report
 
 
-Creating a Great Writeup
----
-For this project, a great writeup should provide a detailed response to the "Reflection" section of the [project rubric](https://review.udacity.com/#!/rubrics/322/view). There are three parts to the reflection:
+[//]: # (Image References)
 
-1. Describe the pipeline
+[image1]: ./examples/grayscale.jpg "Grayscale"
 
-2. Identify any shortcomings
-
-3. Suggest possible improvements
-
-We encourage using images in your writeup to demonstrate how your pipeline works.  
-
-All that said, please be concise!  We're not looking for you to write a book here: just a brief description.
-
-You're not required to use markdown for your writeup.  If you use another method please just submit a pdf of your writeup. Here is a link to a [writeup template file](https://github.com/udacity/CarND-LaneLines-P1/blob/master/writeup_template.md). 
-
-
-The Project
 ---
 
-## If you have already installed the [CarND Term1 Starter Kit](https://github.com/udacity/CarND-Term1-Starter-Kit/blob/master/README.md) you should be good to go!   If not, you should install the starter kit to get started on this project. ##
+### Reflection
 
-**Step 1:** Set up the [CarND Term1 Starter Kit](https://github.com/udacity/CarND-Term1-Starter-Kit/blob/master/README.md) if you haven't already.
+### 1. Describe your pipeline. As part of the description, explain how you modified the draw_lines() function.
 
-**Step 2:** Open the code in a Jupyter Notebook
+Here were the steps to my pipeline:
 
-You will complete the project code in a Jupyter notebook.  If you are unfamiliar with Jupyter Notebooks, check out [Udacity's free course on Anaconda and Jupyter Notebooks](https://classroom.udacity.com/courses/ud1111) to get started.
+1. Convert images to grayscale
+2. Apply the gaussian blur filter to the grayscaled image
+3. Apply the canny edge detection algorithm
+4. Apply region of interest and focus the images into a triangle
+5. Apply the hough lines algorithm to trace out the 2 lane lines
+6. Perform a weighted_img using cv2.addWeighted to display both the lane lines and the image
 
-Jupyter is an Ipython notebook where you can run blocks of code and see results interactively.  All the code for this project is contained in a Jupyter notebook. To start Jupyter in your browser, use terminal to navigate to your project directory and then run the following command at the terminal prompt (be sure you've activated your Python 3 carnd-term1 environment as described in the [CarND Term1 Starter Kit](https://github.com/udacity/CarND-Term1-Starter-Kit/blob/master/README.md) installation instructions!):
+What I modified for the draw lines function:
 
-`> jupyter notebook`
+- I made my pipeline directly from the QandA linked. The video talks about getting the slope of the lines, appending them to a list and place a conditional saying that if the slope falls between 2 thresholds, append them to the list. Else, discard them
+- After appending them to the list (in this case it was x1_left, x2_left, x1_right and x2_right), I then took the average of them using np.mean()
+- Once I get those values, then I can directly stitch/draw them using the cv2.line function
+- The reason who I have an x1_right as well is remember that we need to draw two lines, one on the left and one on the right. The line on the right will have a negative slope because it is heading "downward" vs the one on the left. That was something I did not keep in mind initially and the model failed. But now it's fixed :)
 
-A browser window will appear showing the contents of the current directory.  Click on the file called "P1.ipynb".  Another browser window will appear displaying the notebook.  Follow the instructions in the notebook to complete the project.  
+Here's what it looked like before (click on the picture):
 
-**Step 3:** Complete the project and submit both the Ipython notebook and the project writeup
+[![video](test_videos_output/old_lines.png)](test_videos_output/solidWhiteRight_0.mp4)
 
-## How to write a README
-A well written README file can enhance your project and portfolio.  Develop your abilities to create professional README files by completing [this free course](https://www.udacity.com/course/writing-readmes--ud777).
+Here's what it looks like now:
 
+[![video](test_videos_output/new_lines.png)](test_videos_output/solidWhiteRight_1.mp4)
+
+### 2. Identify potential shortcomings with your current pipeline
+
+- If the line is something like x = 5, then the slope is undefined. This can cause NaN errors (as I would assume occured when I tested the current model in the curved lines challenge)
+- Maybe the threshold values for the slopes are not optimal (0.5,1.0,-0.5,-1.0) and should be fixed. 
+
+
+### 3. Suggest possible improvements to your pipeline
+
+How I can potentially improve the pipeline:
+
+- Think of the slope of every single point that you take as a derivative of a polynomial/higher degree function. Then, what you can do is then use those derivatives to actually stitch out the polynomial (in this case, would be curved lines) function. (The analogy of derivatives is very bad since a derivative is constant but I think it's the best way to explain it)
+- Play around and look for better thresholds for the slopes/y values
