@@ -92,13 +92,33 @@ Here is an example of a traffic sign image before and after grayscaling:
 
 I used the LeNet model architecture provided but made some small modifications to it.
 
-Here's a model summary
- 
+Here's a model summary:
+
+Input size: (None,32,32,1)
+
+Convolution - 5x5 kernel size, in_channel = 1, out_channel = 6
+RelU
+Maxpooling - 2x2 kernal size, stride = 2
+
+Convolution - 5x5 kernel size, in_channel = 6, out_channel = 16
+RelU
+Maxpooling - 2x2 kernal size, stride = 2
+
+Flatten layers into 1-D Vector
+Feedforward Neural Network Layer - Input = 400, Ouptut = 1024
+Feedforward Neural Network Layer - Input = 1024, Ouptut = 512
+
+Output - Input = 512, Ouptut = 43
 
 
 #### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
-To train the model, I used an ....
+- Loss function: softmax_cross_entropy_with_logits
+- Optimizer: Adam with a learning rate of 0.001 (1e-3)
+- Batch size = 128
+- Epochs = 20
+
+I let this run for 20 epochs. Take a look below to see how well the model did!
 
 #### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
@@ -129,33 +149,26 @@ Here are the results of the prediction:
 
 | Image			        |     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| Stop Sign      		| Stop sign   									| 
-| U-turn     			| U-turn 										|
-| Yield					| Yield											|
-| 100 km/h	      		| Bumpy Road					 				|
-| Slippery Road			| Slippery Road      							|
+| Speed limit (30km/h)      		| Speed limit (30km/h)   									| 
+| Slippery road     			| Slippery road 										|
+| Turn left ahead					| Turn left ahead											|
+| No passing for vehicles over 3.5 metric tons	      		| No passing for vehicles over 3.5 metric tons					 				|
+| Speed limit (120km/h)			| Speed limit (120km/h)      							|
 
 
-The model was able to correctly guess 4 of the 5 traffic signs, which gives an accuracy of 80%. This compares favorably to the accuracy on the test set of ...
-
+The model was able to correctly guess 5 of the 5 traffic signs, which gives an accuracy of 100%! I'm actually very surprised and proud of it, I thought the model would guess the 4th image wrong but it got it right!
 #### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
-The code for making predictions on my final model is located in the 11th cell of the Ipython notebook.
-
-For the first image, the model is relatively sure that this is a stop sign (probability of 0.6), and the image does contain a stop sign. The top five soft max probabilities were
+The code for making predictions on my final model is located in the 14th cell of the Ipython notebook.
 
 | Probability         	|     Prediction	        					| 
 |:---------------------:|:---------------------------------------------:| 
-| .60         			| Stop sign   									| 
-| .20     				| U-turn 										|
-| .05					| Yield											|
-| .04	      			| Bumpy Road					 				|
-| .01				    | Slippery Road      							|
+| 1.0         			| Speed limit (30km/h)   									| 
+| 1.0    				| Slippery road 										|
+| 1.0 					| Turn left ahead											|
+| 0.99	      			| No passing for vehicles over 3.5 metric tons					 				|
+| 0.99				    | Speed limit (120km/h)      							|
 
 
-For the second image ... 
-
-### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
-#### 1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
-
+I can't believe that the model did this week. It is obviously not overfitting because of the very high testing and validation scores which clearly show's the power of Yann LeCun!!
 
