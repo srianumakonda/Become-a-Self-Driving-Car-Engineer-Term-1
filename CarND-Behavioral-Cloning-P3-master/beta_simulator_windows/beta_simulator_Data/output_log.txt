@@ -1,0 +1,106 @@
+Initialize engine version: 5.5.1f1 (88d00a7498cd)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA GeForce GTX 1650 (ID=0x1f91)
+    Vendor:   NVIDIA
+    VRAM:     3964 MB
+    Driver:   27.21.14.6109
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\srian\Desktop\Become-a-Self-Driving-Car-Engineer\CarND-Behavioral-Cloning-P3-master\beta_simulator_windows\beta_simulator_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\srian\Desktop\Become-a-Self-Driving-Car-Engineer\CarND-Behavioral-Cloning-P3-master\beta_simulator_windows\beta_simulator_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\srian\Desktop\Become-a-Self-Driving-Car-Engineer\CarND-Behavioral-Cloning-P3-master\beta_simulator_windows\beta_simulator_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading C:\Users\srian\Desktop\Become-a-Self-Driving-Car-Engineer\CarND-Behavioral-Cloning-P3-master\beta_simulator_windows\beta_simulator_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: C:\Users\srian\Desktop\Become-a-Self-Driving-Car-Engineer\CarND-Behavioral-Cloning-P3-master\beta_simulator_windows\beta_simulator_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\srian\Desktop\Become-a-Self-Driving-Car-Engineer\CarND-Behavioral-Cloning-P3-master\beta_simulator_windows\beta_simulator_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\srian\Desktop\Become-a-Self-Driving-Car-Engineer\CarND-Behavioral-Cloning-P3-master\beta_simulator_windows\beta_simulator_Data\Managed\Assembly-UnityScript.dll (this message is harmless)
+Loading C:\Users\srian\Desktop\Become-a-Self-Driving-Car-Engineer\CarND-Behavioral-Cloning-P3-master\beta_simulator_windows\beta_simulator_Data\Managed\Assembly-UnityScript.dll into Unity Child Domain
+Platform assembly: C:\Users\srian\Desktop\Become-a-Self-Driving-Car-Engineer\CarND-Behavioral-Cloning-P3-master\beta_simulator_windows\beta_simulator_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\srian\Desktop\Become-a-Self-Driving-Car-Engineer\CarND-Behavioral-Cloning-P3-master\beta_simulator_windows\beta_simulator_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\srian\Desktop\Become-a-Self-Driving-Car-Engineer\CarND-Behavioral-Cloning-P3-master\beta_simulator_windows\beta_simulator_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\srian\Desktop\Become-a-Self-Driving-Car-Engineer\CarND-Behavioral-Cloning-P3-master\beta_simulator_windows\beta_simulator_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: C:\Users\srian\Desktop\Become-a-Self-Driving-Car-Engineer\CarND-Behavioral-Cloning-P3-master\beta_simulator_windows\beta_simulator_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll (this message is harmless)
+Loading C:\Users\srian\Desktop\Become-a-Self-Driving-Car-Engineer\CarND-Behavioral-Cloning-P3-master\beta_simulator_windows\beta_simulator_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
+- Completed reload, in  0.036 seconds
+Platform assembly: C:\Users\srian\Desktop\Become-a-Self-Driving-Car-Engineer\CarND-Behavioral-Cloning-P3-master\beta_simulator_windows\beta_simulator_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\srian\Desktop\Become-a-Self-Driving-Car-Engineer\CarND-Behavioral-Cloning-P3-master\beta_simulator_windows\beta_simulator_Data\Managed\System.dll (this message is harmless)
+OnLevelWasLoaded was found on ReturnToMainMenu
+This message has been deprecated and will be removed in a later version of Unity.
+Add a delegate to SceneManager.sceneLoaded instead to get notifications after scene loading has completed
+ 
+(Filename:  Line: 382)
+
+Platform assembly: C:\Users\srian\Desktop\Become-a-Self-Driving-Car-Engineer\CarND-Behavioral-Cloning-P3-master\beta_simulator_windows\beta_simulator_Data\Managed\Mono.Security.dll (this message is harmless)
+desktop: 1920x1080 59Hz; virtual: 4800x1350 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 1.195200 ms
+Setting up 3 worker threads for Enlighten.
+  Thread -> id: 253c -> priority: 1 
+  Thread -> id: 3b80 -> priority: 1 
+  Thread -> id: 2794 -> priority: 1 
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 3.129900 ms
+
+Unloading 9 unused Assets to reduce memory usage. Loaded Objects now: 511.
+Total: 0.242200 ms (FindLiveObjects: 0.024600 ms CreateObjectMapping: 0.013000 ms MarkObjects: 0.185200 ms  DeleteObjects: 0.009400 ms)
+
+in menu script 2
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 1.704600 ms
+
+Unloading 23 unused Assets to reduce memory usage. Loaded Objects now: 1623.
+Total: 0.671900 ms (FindLiveObjects: 0.067600 ms CreateObjectMapping: 0.026200 ms MarkObjects: 0.266900 ms  DeleteObjects: 0.310700 ms)
+
+True
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Starting to record
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Stopping record
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Writing to disk
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 3.625500 ms
+
+Unloading 407 unused Assets to reduce memory usage. Loaded Objects now: 1024.
+Total: 3.427500 ms (FindLiveObjects: 0.058300 ms CreateObjectMapping: 0.035800 ms MarkObjects: 0.640000 ms  DeleteObjects: 2.692700 ms)
+
+in menu script 2
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 0.319300 ms
+
+Unloading 23 unused Assets to reduce memory usage. Loaded Objects now: 2126.
+Total: 1.217300 ms (FindLiveObjects: 0.095500 ms CreateObjectMapping: 0.028800 ms MarkObjects: 0.632300 ms  DeleteObjects: 0.460300 ms)
+
+True
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Starting to record
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Stopping record
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Writing to disk
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
