@@ -19,8 +19,11 @@ for line in lines[1:]:
     source_path = str("C:/Users/srian/Desktop/Become-a-Self-Driving-Car-Engineer/CarND-Behavioral-Cloning-P3-master/"+line[0])
     image = cv2.imread(source_path)
     image = cv2.cvtColor(image,cv2.COLOR_BGR2RGB)
+    cv2.imwrite("1.jpg",image)
     images.append(image)
     images.append(cv2.flip(image,1))
+    cv2.imwrite("2.jpg",cv2.flip(image,1))
+    break
     measurements.append(float(line[3])-float(0.25))
     measurements.append((float(line[3])-float(0.25))*-1.0)
 
@@ -48,12 +51,11 @@ model.add(Dropout(0.3))
 
 model.add(Flatten())
 model.add(Dropout(0.9))
-# model.add(Dense(units=512))
 model.add(Dense(units=256))
-# model.add(Dense(units=64))
+model.add(Dense(units=64))
 model.add(Dense(units=1))
 
 model.compile(loss='mse',optimizer='adam')
-model.fit(X_train,y_train,validation_split=0.2,shuffle=True,epochs=3,batch_size=32)
+model.fit(X_train,y_train,validation_split=0.2,shuffle=True,epochs=5,batch_size=32)
 
 model.save('model.h5')
