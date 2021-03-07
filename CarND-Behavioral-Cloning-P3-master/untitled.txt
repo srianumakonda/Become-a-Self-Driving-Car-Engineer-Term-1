@@ -1,0 +1,81 @@
+import cv2
+import csv
+import numpy as np
+import os
+os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+
+lines = []
+
+with open('driving_log.csv') as csvfile:
+    reader = csv.reader(csvfile)
+    for line in reader:
+        lines.append(line)
+
+import sklearn
+from sklearn.model_selection import train_test_split
+from sklearn.utils import shuffle
+train_samples, val_samples = train_test_split(lines,test_size=0.2)
+
+def generator(subset,batch_size=32):
+    num = len(subset)
+    
+    while 1:
+        shuffle(subset)
+        for offset in range(0,num,batch_size):
+            batch_samples = subset[offset:offset+batch_size]
+            X = []
+            y = []
+            
+            for batch_sample in batch_samples:
+                source_path = "./IMG/" + batch_sample[0].split('/')[-1]
+                image = cv2.imread(source_path)
+                image = cv2.cvtColor(image,cv2.COLOR_BGR2RGB)
+                X.append(image)
+                angle = float(batch_sample[3])
+                y.append(angle)
+            
+            X_ = np.array(X)
+            y_ = np.array(y)
+            yield shuffle(X_), shuffle(y_)
+
+batch_size = 32
+
+train_gen = generator(train_samples,batch_size=batch_size)
+val_gen = generator(val_samples,batch_size=batch_size)
+
+from keras.models import Sequential
+from keras.layers import Flatten, Dense, Conv2D, MaxPooling2D, Dropout, Cropping2D, Lambda
+
+model = Sequential()
+model.add(Lambda(lambda x: x/127.5-1,input_shape=(160,320,3)))
+model.add(Cropping2D(cropping=((70,25),(0,0)),input_shape=(160,320,3)))
+model.add(Conv2D(16, (5,5), activation='relu', padding='same'))
+model.add(Conv2D(32, (5,5), activation='relu', padding='same'))
+model.add(MaxPooling2D(2,2))
+
+model.add(Conv2D(32, (5,5), activation='relu', padding='same'))
+model.add(Conv2D(48, (5,5), activation='relu', padding='same'))
+model.add(MaxPooling2D(2,2))
+
+model.add(Conv2D(64, (3,3), activation='relu', padding='same'))
+model.add(Conv2D(64, (3,3), activation='relu', padding='same'))
+model.add(MaxPooling2D(2,2))
+model.add(Dropout(0.2))
+
+model.add(Flatten())
+model.add(Dropout(0.9))
+# model.add(Dense(units=512))
+model.add(Dense(units=256))
+model.add(Dense(units=128))
+model.add(Dense(units=64))
+model.add(Dense(units=1))
+
+model.compile(loss='mse',optimizer='adam')
+model.fit(train_gen,
+          validation_data=val_gen,
+          epochs=5,
+          steps_per_epoch=np.ceil(len(train_samples)/batch_size),
+          validation_steps=np.ceil(len(val_samples)/batch_size))
+
+model.save('test_model.h5')
