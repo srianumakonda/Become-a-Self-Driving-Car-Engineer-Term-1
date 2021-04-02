@@ -1,5 +1,8 @@
 #include "kalman_filter.h"
+#include <iostream>
 
+using std::cout;
+using std::endl;
 using Eigen::MatrixXd;
 using Eigen::VectorXd;
 
@@ -62,7 +65,7 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
   float vy = x_(3);
 
   float rho = sqrt(px*px+py*py);
-  float phi = atan2(x_(1)/x_(0));
+  float phi = atan2(py/px);
   float rho_dot = (px*vx+py*vy)/rho;
 
   VectorXd z_pred(3);
