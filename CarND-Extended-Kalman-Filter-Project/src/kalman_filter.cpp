@@ -7,7 +7,7 @@ KalmanFilter::KalmanFilter() {}
 
 KalmanFilter::~KalmanFilter() {}
 
-Tools KalmanFilter::tools_res = Tools();
+Tools KalmanFilter::tools_ = Tools();
 
 void KalmanFilter::Init(VectorXd &x_in, MatrixXd &P_in, MatrixXd &F_in,
                         MatrixXd &H_in, MatrixXd &R_in, MatrixXd &Q_in) {
@@ -31,7 +31,7 @@ void KalmanFilter::Predict() {
 
 void KalmanFilter::Update(const VectorXd &z) {
 
-  MatrixXd I_ = MatrixXd::Identity(x_.size(),x_.size());
+  MatrixXd I_ = MatrixXd::Identity(4,4);
   
   VectorXd y_ = z - H_ * x_;
   MatrixXd Ht = H_.transpose();
@@ -46,7 +46,7 @@ void KalmanFilter::Update(const VectorXd &z) {
 
 void KalmanFilter::UpdateEKF(const VectorXd &z) {
   
-  MatrixXd I_ = MatrixXd::Identity(x_.size(),x_.size());
+  MatrixXd I_ = MatrixXd::Identity(4,4);
   float x = ekf_.x_(0);
   float y = ekf_.x_(1);
   float vx = ekf_.x_(2);

@@ -17,9 +17,10 @@ FusionEKF::FusionEKF() {
   R_laser_ = MatrixXd(2, 2);
   R_radar_ = MatrixXd(3, 3);
   H_laser_ = MatrixXd(2, 4);
+  
   Hj_ = MatrixXd(3, 4);
   ekf_.P_ = MatrixXd(4, 4);
-  ekf_.F_ = MatrixXd::Identity(4,4);
+  ekf_.F_ = MatrixXd(4, 4);
 
   R_laser_ << 0.0225, 0,
               0, 0.0225;
@@ -30,6 +31,20 @@ FusionEKF::FusionEKF() {
 
   H_laser_ << 1, 0, 0, 0,
               0, 1, 0, 0;
+
+  Hj_ << 1, 1, 0, 0,
+         1, 1, 0, 0,
+         1, 1, 1, 1;
+
+  ekf_.F_ << 1, 0, 1, 0,
+             0, 1, 0, 1,
+             0, 0, 1, 0,
+             0, 0, 0, 1;
+
+  ekf_.P_ << 1, 0, 0, 0,
+             0, 1, 0, 0,
+             0, 0, 1000, 0,
+             0, 0, 0, 1000;
 
   noise_ax = 9;
   noise_ay = 9;
