@@ -26,9 +26,11 @@ for line in lines[1:]:
     break
     measurements.append(float(line[3])-float(0.25))
     measurements.append((float(line[3])-float(0.25))*-1.0)
-"""
+
 X_train = np.array(images)
 y_train = np.array(measurements)
+
+print(X_train.shape,y_train.shape)
 
 from keras.models import Sequential
 from keras.layers import Flatten, Dense, Conv2D, MaxPooling2D, Dropout, Cropping2D, Lambda
@@ -51,13 +53,11 @@ model.add(Dropout(0.3))
 
 model.add(Flatten())
 model.add(Dropout(0.9))
-# model.add(Dense(units=512))
 model.add(Dense(units=256))
-# model.add(Dense(units=64))
+model.add(Dense(units=64))
 model.add(Dense(units=1))
 
 model.compile(loss='mse',optimizer='adam')
 model.fit(X_train,y_train,validation_split=0.2,shuffle=True,epochs=5,batch_size=32)
 
-model.save('model.h5')
-"""
+model.save('pymodel.h5')
