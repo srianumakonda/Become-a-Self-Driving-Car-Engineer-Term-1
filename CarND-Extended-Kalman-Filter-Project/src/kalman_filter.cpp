@@ -23,43 +23,15 @@ void KalmanFilter::Init(VectorXd &x_in, MatrixXd &P_in, MatrixXd &F_in,
 
 void KalmanFilter::Predict() {
   
-  x_ = F_*x_;
+  x_ = F_ * x_;
   MatrixXd Ft = F_.transpose();
-  P_ = F_*P_*Ft+Q_;
+  P_ = F_ * P_ * Ft + Q_;
 
 }
 
 void KalmanFilter::Update(const VectorXd &z) {
-
-  MatrixXd I_ = MatrixXd::Identity(4,4);
   
   VectorXd y_ = z - H_ * x_;
-  MatrixXd Ht = H_.transpose();
-  MatrixXd S_ = H_ * P_ * Ht + R_;
-  MatrixXd Si = S_.inverse();
-  MatrixXd K_ =  P_ * Ht * Si;
-
-  x_ = x_ + (K_ * y_);
-  P_ = (I_ - K_ * H_) * P_;
-
-}
-
-void KalmanFilter::UpdateEKF(const VectorXd &z) {
-  
-  MatrixXd I_ = MatrixXd::Identity(4,4);
-  float x = x_(0);
-  float y = x_(1);
-  float vx = x_(2);
-  float vy = x_(3);
-
-  float rho = sqrt(x*x+y*y);
-  float phi = atan2(y/x);
-  float rho_dot = (x*vx+y*vy)/rho;
-
-  VectorXd z_pred = VectorXd(3);
-  z_pred << rho,phi,rho_dot;
-  
-  VectorXd y_ = z - z_pred;
 
   while (y_(1) < -M_PI){
     y_(1) += 2 * M_PI;
@@ -69,11 +41,52 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
   }
 
   MatrixXd Ht = H_.transpose();
-  MatrixXd S_ = H_ * P_ * Ht + R_;
-  MatrixXd Si = S_.inverse();
-  MatrixXd K_ =  P_ * Ht * Si;
+  MatrixXd S = H_ * P_ * Ht + R_;
+  MatrixXd Si = S.inverse();
+  MatrixXd K =  P_ * Ht * Si;
 
-  x_ = x_ + (K_ * y_);
-  P_ = (I_ - K_ * H_) * P_;
+  x_ = x_ + (K * y_);
+
+  int x_shape = x_.size();
+  MatrixXd I = MatrixXd::Identity(x_shape,x_shape);
+
+  P_ = (I - K * H_) * P_;
+
+}
+
+void KalmanFilter::UpdateEKF(const VectorXd &z) {
+
+  float px = x_(0);
+  float py = x_(1);
+  float vx = x_(2);
+  float vy = x_(3);
+
+  float rho = sqrt(px*px+py*py);
+  float phi = atan2(py/px);
+  float rho_dot = (px*vx+py*vy)/rho;
+
+  VectorXd z_pred(3);
+  z_pred << rho,phi,rho_dot;
+  
+  VectorXd y = z - z_pred;
+
+  while (y(1) < -M_PI){
+      y(1) += 2 * M_PI;
+  }
+  while (y(1) > M_PI){
+    y(1) -= 2 * M_PI;
+  }
+
+  MatrixXd Ht = H_.transpose();
+  MatrixXd S = H_ * P_ * Ht + R_;
+  MatrixXd Si = S.inverse();
+  MatrixXd K =  P_ * Ht * Si;
+
+  x_ = x_ + (K * y);
+
+  int x_shape = x_.size();
+  MatrixXd I = MatrixXd::Identity(4,4);
+
+  P_ = (I - K * H_) * P_;
 
 }
