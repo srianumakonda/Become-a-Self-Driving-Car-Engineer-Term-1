@@ -7,7 +7,7 @@ KalmanFilter::KalmanFilter() {}
 
 KalmanFilter::~KalmanFilter() {}
 
-Tools KalmanFilter::tools_ = Tools();
+// Tools KalmanFilter::tools_ = Tools();
 
 void KalmanFilter::Init(VectorXd &x_in, MatrixXd &P_in, MatrixXd &F_in,
                         MatrixXd &H_in, MatrixXd &R_in, MatrixXd &Q_in) {
@@ -47,26 +47,26 @@ void KalmanFilter::Update(const VectorXd &z) {
 void KalmanFilter::UpdateEKF(const VectorXd &z) {
   
   MatrixXd I_ = MatrixXd::Identity(4,4);
-  float x = ekf_.x_(0);
-  float y = ekf_.x_(1);
-  float vx = ekf_.x_(2);
-  float vy = ekf_.x_(3);
+  float x = x_(0);
+  float y = x_(1);
+  float vx = x_(2);
+  float vy = x_(3);
 
   float rho = sqrt(x*x+y*y);
-  float thetha = atan2(y/x);
+  float phi = atan2(y/x);
   float rho_dot = (x*vx+y*vy)/rho;
 
   VectorXd z_pred = VectorXd(3);
-  z_pred << rho,thetha,rho_dot;
+  z_pred << rho,phi,rho_dot;
   
   VectorXd y_ = z - z_pred;
 
-  // while (y_[1] < -M_PI){
-  //   y_[1] += 2 * M_PI;
-  // }
-  // while (y_[1] > M_PI){
-  //   y_[1] -= 2 * M_PI;
-  // }
+  while (y_(1) < -M_PI){
+    y_(1) += 2 * M_PI;
+  }
+  while (y_(1) > M_PI){
+    y_(1) -= 2 * M_PI;
+  }
 
   MatrixXd Ht = H_.transpose();
   MatrixXd S_ = H_ * P_ * Ht + R_;
